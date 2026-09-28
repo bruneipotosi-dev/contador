@@ -6,7 +6,7 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_USER=admin
-      - DB_PASS=***REMOVED***
+      - DB_PASS_FILE=/run/secrets/db_password
       - DB_NAME=db-contador
     
     restart: unless-stopped
@@ -18,12 +18,14 @@ services:
     networks:
       - frontend
       - backend
+    secrets:
+      - db_password
         
   db:
     image: postgres:18-alpine
     environment:
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=***REMOVED***
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
       - POSTGRES_DB=db-contador
     volumes:
       - volumen-contenedor:/var/lib/postgresql
@@ -36,6 +38,8 @@ services:
       start_period: 30s
     networks:
       - backend
+    secrets:
+      - db_password
   proxy:
     image: nginx:1.31.2-alpine
     ports:
@@ -56,4 +60,7 @@ networks:
   frontend:
   backend:
 
+secrets:
+  db_password:
+    file: ./secrets/db_password.txt
 
