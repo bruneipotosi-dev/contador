@@ -23,17 +23,6 @@ def conectar():
 
 
 
-
-def init_db():
-    conn = conectar()
-    cur = conn.cursor()
-    cur.execute("CREATE TABLE IF NOT EXISTS visitas (id INTEGER PRIMARY KEY, total INTEGER NOT NULL)")
-    cur.execute("INSERT INTO visitas (id, total) VALUES (1, 0) ON CONFLICT (id) DO NOTHING")
-    conn.commit()
-    cur.close()
-    conn.close()
-
-
 @app.route('/')
 def index():
     conn = conectar()
@@ -47,5 +36,4 @@ def index():
 
 
 if __name__ == '__main__':
-    init_db()
     app.run(host='0.0.0.0', port=5000)

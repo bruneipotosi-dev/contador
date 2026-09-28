@@ -5,8 +5,8 @@ services:
     environment:
       - DB_HOST=db
       - DB_PORT=5432
-      - DB_USER=admin
-      - DB_PASS_FILE=/run/secrets/db_password
+      - DB_USER=contador_app
+      - DB_PASS_FILE=/run/secrets/db_app_password
       - DB_NAME=db-contador
     
     restart: unless-stopped
@@ -19,7 +19,7 @@ services:
       - frontend
       - backend
     secrets:
-      - db_password
+      - db_app_password
         
   db:
     image: postgres:18-alpine
@@ -63,4 +63,5 @@ networks:
 secrets:
   db_password:
     file: ./secrets/db_password.txt
-
+  db_app_password:
+    file: ./secrets/db_app_password.txt
