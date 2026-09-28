@@ -173,7 +173,7 @@ PostgreSQL only reads the secret files on the **first** start, so rotating means
 
 ```bash
 NEW=$(openssl rand -hex 16)
-docker compose exec db psql -U <admin-user> -d db-contador -c "ALTER USER contador_app PASSWORD '$NEW';" \
+docker compose exec db psql -U admin -d db-contador -c "ALTER USER contador_app PASSWORD '$NEW';" \
   && printf '%s' "$NEW" > secrets/db_app_password.txt
 unset NEW
 ```

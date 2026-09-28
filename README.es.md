@@ -173,7 +173,7 @@ PostgreSQL solo lee los archivos de secrets en el **primer** arranque, así que 
 
 ```bash
 NUEVA=$(openssl rand -hex 16)
-docker compose exec db psql -U <usuario-admin> -d db-contador -c "ALTER USER contador_app PASSWORD '$NUEVA';" \
+docker compose exec db psql -U admin -d db-contador -c "ALTER USER contador_app PASSWORD '$NUEVA';" \
   && printf '%s' "$NUEVA" > secrets/db_app_password.txt
 unset NUEVA
 ```
