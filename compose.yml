@@ -29,6 +29,7 @@ services:
       - POSTGRES_DB=db-contador
     volumes:
       - volumen-contenedor:/var/lib/postgresql
+      - ./initdb:/docker-entrypoint-initdb.d:ro
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d db-contador"]
@@ -40,6 +41,7 @@ services:
       - backend
     secrets:
       - db_password
+      - db_app_password
   proxy:
     image: nginx:1.31.2-alpine
     ports:
