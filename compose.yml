@@ -13,6 +13,8 @@ services:
     depends_on:
      db:
       condition: service_healthy
+    deploy:
+      replicas: 3
         
   db:
     image: postgres:18-alpine
